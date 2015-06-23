@@ -1,7 +1,8 @@
 class RentalsController < ApplicationController
 
 def index
-    @rentals = curren_user.rental.all 
+    @user = current_user
+    @rentals = @user.rentals.all 
   end
 
  
