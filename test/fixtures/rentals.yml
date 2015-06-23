@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  rental_date: 2015-06-22 15:49:51
+  Book_id: 
+  User_id: 
+  Log_id: 
+
+two:
+  rental_date: 2015-06-22 15:49:51
+  Book_id: 
+  User_id: 
+  Log_id: 
