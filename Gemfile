@@ -5,9 +5,6 @@ source 'https://rubygems.org'
 gem 'rails', '4.2.1'
 # Use sqlite3 as the database for Active Record
 
-group :development, :staging do
-  gem 'sqlite3'
-end
 
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 5.0'
@@ -24,8 +21,6 @@ gem 'jquery-rails'
 gem 'turbolinks'
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
 gem 'jbuilder', '~> 2.0'
-# bundle exec rake doc:rails generates the API under doc/api.
-gem 'sdoc', '~> 0.4.0', group: :doc
 
 gem 'devise'
 gem 'cancancan'
@@ -39,12 +34,18 @@ gem 'amazon-ecs'
 gem "mini_magick"
 gem "figaro"
 
-gem "jpeg_camera", "~> 1.3.2"
 
 group :production, :staging do
   gem "pg"
 end
 
+group :development, :test do
+  gem 'sqlite3'
+end
+
+
+# bundle exec rake doc:rails generates the API under doc/api.
+gem 'sdoc', '~> 0.4.0', group: :doc
 
 
 # Use ActiveModel has_secure_password
