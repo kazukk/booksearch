@@ -6,6 +6,7 @@ before_action :set_book, only: [:show, :edit, :update, :destroy]
     @books = Book.all
   end
 
+
   def show
   end
 
@@ -13,22 +14,36 @@ before_action :set_book, only: [:show, :edit, :update, :destroy]
     @book = Book.new
   end
 
- def get_info
-    Amazon::Ecs.debug = true
-    res = Amazon::Ecs.item_search(params[:isbn],
-         :search_index   => 'Books',
-         :response_group => 'Medium',
-         :country        => 'jp'
-       )
-    info = {
-      'Image' => res.first_item.get('MediumImage/URL'),      
-      'Title' => res.first_item.get('ItemAttributes/Title'),
-            'Author' => res.first_item.get('ItemAttributes/Author'),
-            'Manufacturer' => res.first_item.get('ItemAttributes/Manufacturer'),
-            'Publication_Date' => res.first_item.get('ItemAttributes/PublicationDate')
-            }
-    render json: info
-  end
+   def get_info
+
+    #AWS
+        Amazon::Ecs.debug = true
+        res = Amazon::Ecs.item_search(params[:isbn],
+             :search_index   => 'Books',
+             :response_group => 'Medium',
+             :country        => 'jp'
+           )
+        info = {
+          'Image' => res.first_item.get('MediumImage/URL'),      
+          'Title' => res.first_item.get('ItemAttributes/Title'),
+                'Author' => res.first_item.get('ItemAttributes/Author'),
+                'Manufacturer' => res.first_item.get('ItemAttributes/Manufacturer'),
+                'Publication_Date' => res.first_item.get('ItemAttributes/PublicationDate')
+                }
+        render json: info
+   
+
+    #Rakuten Books
+  # item = RakutenWebService::Books::Total.search(:isbn) # This returns Enumerable object
+   
+
+  #       info = {
+  #         'Title' => item['itemName'],
+  #               }
+  #       render json: info
+
+
+end
 
 
   def create

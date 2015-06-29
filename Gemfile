@@ -33,6 +33,7 @@ gem 'bootstrap_form'
 gem 'amazon-ecs'
 gem "mini_magick"
 gem "figaro"
+gem 'rakuten_web_service'
 
 
 group :production, :staging do

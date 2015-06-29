@@ -2,6 +2,7 @@ require File.expand_path('../boot', __FILE__)
 
 require 'rails/all'
 require 'amazon/ecs'
+require 'rakuten_web_service'
 
 # Require the gems listed in Gemfile, including any gems
 # you've limited to :test, :development, or :production.
@@ -28,6 +29,11 @@ module Booksearch
       :AWS_access_key_id => ENV["AWS_access_key_id"],
       :AWS_secret_key =>   ENV["AWS_secret_key"]
     }
+
+RakutenWebService.configuration do |c|
+  c.application_id = ENV["RK_APPLICATION_ID"]
+  c.affiliate_id = ENV["RK_AFFILIATE_ID"]
+end
 
 
     # Do not swallow errors in after_commit/after_rollback callbacks.
