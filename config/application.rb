@@ -9,6 +9,7 @@ Bundler.require(*Rails.groups)
 
 module Booksearch
   class Application < Rails::Application
+		config.autoload_paths += %W(#{config.root}/app/middlewares)
     # Settings in config/environments/* take precedence over those specified here.
     # Application configuration should go into files in config/initializers
     # -- all .rb files in that directory are automatically loaded.
@@ -24,8 +25,8 @@ module Booksearch
 
     Amazon::Ecs.options = {
       :associate_tag =>     'shariends-22',
-      :AWS_access_key_id => 'AKIAIWKU4BNAZJIGKOEA',
-      :AWS_secret_key =>   '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'
+      :AWS_access_key_id => ENV["AWS_access_key_id"],
+      :AWS_secret_key =>   ENV["AWS_secret_key"]
     }
 
 

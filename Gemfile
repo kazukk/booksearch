@@ -37,10 +37,14 @@ gem 'bootstrap_form'
 
 gem 'amazon-ecs'
 gem "mini_magick"
+gem "figaro"
+
+gem "jpeg_camera", "~> 1.3.2"
 
 group :production, :staging do
   gem "pg"
 end
+
 
 
 # Use ActiveModel has_secure_password
