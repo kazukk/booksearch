@@ -76,4 +76,10 @@ Rails.application.configure do
 
   # Do not dump schema after migrations.
   config.active_record.dump_schema_after_migration = false
+
+# adding new js files
+config.assets.precompile += %w( JOB.js )
+config.assets.precompile += %w( exif.js )
+config.assets.precompile += %w( DecoderWorker.js )
+
 end

@@ -4,7 +4,6 @@
   <%= f.text_field :isbn %>
   <input class="btn btn-danger" type="button" id="info_search_button" value="検索">
   <hr>
-  <%= f.text_field :image %>
   <%= f.text_field :title %>
   <%= f.text_field :author %>
   <%= f.text_field :manufacturer %>
@@ -22,7 +21,7 @@
       <p id="textbit"></p>
     </div>
 
-<%= javascript_include_tag 'JOB' %>
+<%= javascript_include_tag "JOB" %>
 <script type="text/javascript">
       var takePicture = document.querySelector("#Take-Picture"),
       showPicture = document.createElement("img");
