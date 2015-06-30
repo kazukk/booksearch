@@ -14,7 +14,7 @@
 //= require jquery_ujs
 //= require bootstrap
 //= require turbolinks
-//= require JOB
-//= require exif
-//= require DecoderWorker
+//= require JOB.js
+//= require exif.js
+//= require DecoderWorker.js
 //= require_tree .

@@ -34,7 +34,9 @@ gem 'amazon-ecs'
 gem "mini_magick"
 gem "figaro"
 gem 'rakuten_web_service'
-
+gem 'pry-rails', group: :development
+gem 'quiet_assets', group: :development
+gem 'meta_request', group: :development
 
 group :production, :staging do
   gem "pg"
