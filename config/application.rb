@@ -24,6 +24,8 @@ module Booksearch
     # config.i18n.default_locale = :de
 
 
+
+
     Amazon::Ecs.options = {
       :associate_tag =>     'shariends-22',
       :AWS_access_key_id => ENV["AWS_access_key_id"],

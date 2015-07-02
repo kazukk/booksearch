@@ -27,18 +27,6 @@ ActiveRecord::Schema.define(version: 20150623235624) do
     t.datetime "updated_at",       null: false
   end
 
-  create_table "headshot_photos", force: :cascade do |t|
-    t.string   "description"
-    t.string   "image_file_name"
-    t.string   "image_content_type"
-    t.integer  "image_file_size"
-    t.integer  "capturable_id"
-    t.string   "capturable_type"
-    t.datetime "image_updated_at"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
   create_table "logs", force: :cascade do |t|
     t.datetime "rental_date"
     t.datetime "return_date"

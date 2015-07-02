@@ -2,6 +2,12 @@ class BooksController < ApplicationController
 load_and_authorize_resource
 before_action :set_book, only: [:show, :edit, :update, :destroy]
 
+before_action :authenticate_user!
+before_action :configure_permitted_parameters, if: :devise_controller?
+
+
+respond_to :js, :json, :html
+
   def index
     @books = Book.all
   end
@@ -17,33 +23,39 @@ before_action :set_book, only: [:show, :edit, :update, :destroy]
    def get_info
 
     #AWS
-        Amazon::Ecs.debug = true
-        res = Amazon::Ecs.item_search(params[:isbn],
-             :search_index   => 'Books',
-             :response_group => 'Medium',
-             :country        => 'jp'
-           )
-        info = {
-          'Image' => res.first_item.get('MediumImage/URL'),      
-          'Title' => res.first_item.get('ItemAttributes/Title'),
-                'Author' => res.first_item.get('ItemAttributes/Author'),
-                'Manufacturer' => res.first_item.get('ItemAttributes/Manufacturer'),
-                'Publication_Date' => res.first_item.get('ItemAttributes/PublicationDate')
-                }
-        render json: info
+    Amazon::Ecs.debug = true
+    res = Amazon::Ecs.item_search(params[:isbn],
+         :search_index   => 'Books',
+         :response_group => 'Medium',
+         :country        => 'jp'
+       )
+    info = {
+      'Image' => res.first_item.get('MediumImage/URL'),      
+      'Title' => res.first_item.get('ItemAttributes/Title'),
+            'Author' => res.first_item.get('ItemAttributes/Author'),
+            'Manufacturer' => res.first_item.get('ItemAttributes/Manufacturer'),
+            'Publication_Date' => res.first_item.get('ItemAttributes/PublicationDate')
+            }
+    render json: info
    
 
     #Rakuten Books
-  # item = RakutenWebService::Books::Total.search(:isbn) # This returns Enumerable object
-   
 
-  #       info = {
-  #         'Title' => item['itemName'],
-  #               }
-  #       render json: info
+        # item = Rakuten.item_search(params[:isbn])
+   
+        # info = {
+        #   'Title' => item['Items']['Item']['title'],
+        #         }
+        # render json: info
 
 
 end
+
+    def isbn
+
+
+
+    end
 
 
   def create

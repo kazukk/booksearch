@@ -9,7 +9,10 @@ resources :rentals
 
   get 'get_info', to: 'books#get_info', path: "/books/new/get_info"
 
-  root to: "welcome#index"
+  root to: "pages#home"
+
+get 'pages/home'
+get 'pages/about'
 
 
   # The priority is based upon order of creation: first created -> highest priority.

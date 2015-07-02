@@ -31,3 +31,6 @@ $(document).on 'ready page:load', -> # turbolinks対策
 
   ### MSGのリセット ###
   $("#book_isbn").change -> $("#msg").html("")
+
+
+

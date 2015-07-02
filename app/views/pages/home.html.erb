@@ -1,0 +1,28 @@
+
+
+<div class="homepage-hero-module">
+    <div class="video-container">
+        <div class="filter"></div>
+        <video autoplay loop class="fillWidth">
+            <source src= "https://s3-ap-northeast-1.amazonaws.com/sharedemo/Cloudy-water.mp4" type="video/mp4" />Your browser does not support the video tag. I suggest you upgrade your browser.
+            <source src= "https://s3-ap-northeast-1.amazonaws.com/sharedemo/Cloudy-water.webm" type="video/webm" />Your browser does not support the video tag. I suggest you upgrade your browser.
+        </video>
+        <div class="poster hidden">
+            <img src= "https://s3-ap-northeast-1.amazonaws.com/sharedemo/Cloudy-water.jpg" alt="">
+        </div>
+    </div>
+</div>
+
+
+<div class="jumbotron container">
+  <h1>Shariends!</h1>
+  <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur ante elit, scelerisque non volutpat vel, elementum quis odio. In hac habitasse platea dictumst. Nulla tristique vel augue non tempus. Mauris imperdiet dolor nec facilisis tempus. Duis luctus tempor est sed vehicula. Maecenas odio massa, scelerisque non ultrices vitae, pulvinar et erat. Morbi mattis ornare metus nec tempor. Morbi vestibulum tellus sed erat pulvinar, in accumsan justo sodales.</p>
+  
+<% if user_signed_in? %>
+  	<%= link_to "蔵書一覧",books_path ,  class: "btn btn-primary btn-lg" %>	
+  		<% else %>
+  	<%= link_to "Sign up", new_user_registration_path,  class: "btn btn-primary btn-lg" %>
+  	<%= link_to "Log in", new_user_session_path, class: "btn btn-primary btn-lg" %>
+<% end %>
+
+</div>

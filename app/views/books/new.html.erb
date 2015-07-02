@@ -13,6 +13,7 @@
 <% end %>
 
 <br>
+
 <br>
 
 <div id="container">
@@ -21,6 +22,9 @@
       <p id="textbit"></p>
     </div>
 
+<div>   <input class="btn btn-primary" type="button" id="isbn_input_button" value="入力"> </div>
+
+
 <%= javascript_include_tag "JOB" %>
 <script type="text/javascript">
       var takePicture = document.querySelector("#Take-Picture"),
@@ -28,6 +32,7 @@
       Result = document.querySelector("#textbit");
       var canvas =document.getElementById("picture");
       var ctx = canvas.getContext("2d");
+     
       JOB.Init();
       JOB.SetImageCallback(function(result) {
         if(result.length > 0){
