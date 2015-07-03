@@ -9,6 +9,8 @@ before_action :configure_permitted_parameters, if: :devise_controller?
 respond_to :js, :json, :html
 
 
+
+
   def index
     @books = Book.all
 
@@ -32,6 +34,12 @@ end
 
    def get_info
 
+  #@book = Book.find(params[:isbn])
+  #isbn = @book.isbn
+
+  require 'open-uri'
+  require 'json'
+
     #AWS
     # Amazon::Ecs.debug = true
     # res = Amazon::Ecs.item_search(params[:isbn],
@@ -48,26 +56,34 @@ end
     #         }
     # render json: info
 
+  
       params = {
-        applicationId: RK_APPLICATION_ID, 
+        applicationId: ENV["RK_APPLICATION_ID"], 
         format: "json",
-          isbn: params[:isbn]
+
+        ###フォーム内のISBNを変数にAPIを叩く
+        #isbn: isbn
       }
 
       # Prepare API request
-      uri = URI.parse(polling_url)
+      uri = URI.parse("https://app.rakuten.co.jp/services/api/BooksBook/Search/20130522")
       uri.query = URI.encode_www_form(params)
 
       # Submit request
       result = JSON.parse(open(uri).read)
 
-      # Display results to screen
+      #Display results to screen
       #puts JSON.pretty_generate result
 
         info = {
+        
+        'Image' => result["Items"].first["Item"]["mediumImageUrl"],  
+        'Isbn' => result["Items"].first["Item"]["isbn"],  
         'Title' => result["Items"].first["Item"]["title"],
         'Author' => result["Items"].first["Item"]["author"],
-        'Manufacturer' => result["Items"].first["Item"]["publisherName"]
+        'Manufacturer' => result["Items"].first["Item"]["publisherName"],
+        'Publication_Date' => result["Items"].first["Item"]["salesDate"]
+ 
 
         }
          render json: info
