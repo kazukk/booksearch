@@ -44,12 +44,11 @@
             Result.innerHTML=tempArray.join("<br />");
           
 
+          //jQueryを使ってIDセレクタ #book_isbnにデータを入力
             var tempArrayib = [];
             for(var i = 0; i < result.length; i++) {
               tempArrayib.push(result[i].Value);
             }
-
-          //jQueryを使ってIDセレクタ #book_isbnにデータを入力
           $("#book_isbn").val(tempArrayib.join("<br />"));
             
 
@@ -114,8 +113,36 @@
           };
         }
 
+      
+     
         
-        
+       
+        $('#info_search_button').click(function(){
+        isbncode = $('#book_isbn').val()
+        $.ajax({
+            async:    true,
+            url:      "/books/new/get_info/",
+            type:     "GET",
+            data:     {isbn: isbncode},
+            dataType: "json",
+            context:  this,
+          success: function(data, textStatus, jqXHR){
+                $("#book_image").val(data.Image) //# 画像
+                $("#book_title").val(data.Title) //# タイトル
+                $("#book_author").val(data.Author) //# 著者
+                $("#book_manufacturer").val(data.Manufacturer) //# 出版社
+                $("#book_publication_date").val(data.Publication_Date) //# 出版日
+          }
+      });
+            }) 
+
+
+ $('#info_search_button').click(
+            function(){
+          $('h1').text("書籍情報自動入力")
+          })
+
+
       </script>
 
 

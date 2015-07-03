@@ -13,7 +13,5 @@
 //= require jquery
 //= require jquery_ujs
 //= require bootstrap
-//= require turbolinks
 //= require JOB
-//= require quagga.min
-//= require file_input
+//= require turbolinks

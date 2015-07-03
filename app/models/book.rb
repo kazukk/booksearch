@@ -1,4 +1,7 @@
 class Book < ActiveRecord::Base
+require 'open-uri'
+require 'json'
+
 
 has_one :rental
 

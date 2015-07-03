@@ -48,20 +48,15 @@ end
     #         }
     # render json: info
 
-end
-
-    def isbn
-
       params = {
         applicationId: RK_APPLICATION_ID, 
         format: "json",
-          isbn: @book.isbn
+          isbn: params[:isbn]
       }
 
       # Prepare API request
       uri = URI.parse(polling_url)
       uri.query = URI.encode_www_form(params)
-
 
       # Submit request
       result = JSON.parse(open(uri).read)
@@ -69,19 +64,15 @@ end
       # Display results to screen
       #puts JSON.pretty_generate result
 
-      puts result["Items"].first["Item"]["isbn"]
+        info = {
+        'Title' => result["Items"].first["Item"]["title"],
+        'Author' => result["Items"].first["Item"]["author"],
+        'Manufacturer' => result["Items"].first["Item"]["publisherName"]
 
-      result["Items"].first["Item"].each do |book|
-        @book = Book.new
-        @book.name = book["title"]
-        @book.author = book["author"]
-        @book.isbn = book["isbn"]
-        @book.manufacture = book["publisherName"]
-        @book.publication_date = book["salesDate"]
-        @book.save
-      puts @book.name
-      end
+        }
+         render json: info
 
+      #result["Items"].first["Item"].each do |book|
 
     end
 

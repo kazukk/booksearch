@@ -29,13 +29,12 @@ $(document).on 'ready page:load', -> # turbolinks対策
         else
           $("#msg").css("color","#ff0000").html("書籍情報が見つかりませんでした。")
 
-    $('#info_search_button').click(
-      function(){
-    $('h1').text("書籍情報自動入力")
-    })
+$('#info_search_button').click(function(){
+$('btn btn-primary').css("color","#ff0000").html("自動入力")
+})
 
   ### MSGのリセット ###
-  $("#h1").change -> $("#msg").html("")
+  $("#book_isbn").change -> $("#msg").html("")
 
 
 
