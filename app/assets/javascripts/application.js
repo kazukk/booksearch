@@ -15,3 +15,5 @@
 //= require bootstrap
 //= require turbolinks
 //= require JOB
+//= require quagga.min
+//= require file_input

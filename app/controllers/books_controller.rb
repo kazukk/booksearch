@@ -8,51 +8,79 @@ before_action :configure_permitted_parameters, if: :devise_controller?
 
 respond_to :js, :json, :html
 
+
   def index
     @books = Book.all
+
   end
 
 
   def show
+
+
   end
 
   def new
     @book = Book.new
   end
 
+def search_book
+@book = Book.all
+
+end
+
+
    def get_info
 
     #AWS
-    Amazon::Ecs.debug = true
-    res = Amazon::Ecs.item_search(params[:isbn],
-         :search_index   => 'Books',
-         :response_group => 'Medium',
-         :country        => 'jp'
-       )
-    info = {
-      'Image' => res.first_item.get('MediumImage/URL'),      
-      'Title' => res.first_item.get('ItemAttributes/Title'),
-            'Author' => res.first_item.get('ItemAttributes/Author'),
-            'Manufacturer' => res.first_item.get('ItemAttributes/Manufacturer'),
-            'Publication_Date' => res.first_item.get('ItemAttributes/PublicationDate')
-            }
-    render json: info
-   
-
-    #Rakuten Books
-
-        # item = Rakuten.item_search(params[:isbn])
-   
-        # info = {
-        #   'Title' => item['Items']['Item']['title'],
-        #         }
-        # render json: info
-
+    # Amazon::Ecs.debug = true
+    # res = Amazon::Ecs.item_search(params[:isbn],
+    #      :search_index   => 'Books',
+    #      :response_group => 'Medium',
+    #      :country        => 'jp'
+    #    )
+    # info = {
+    #   'Image' => res.first_item.get('MediumImage/URL'),      
+    #   'Title' => res.first_item.get('ItemAttributes/Title'),
+    #         'Author' => res.first_item.get('ItemAttributes/Author'),
+    #         'Manufacturer' => res.first_item.get('ItemAttributes/Manufacturer'),
+    #         'Publication_Date' => res.first_item.get('ItemAttributes/PublicationDate')
+    #         }
+    # render json: info
 
 end
 
     def isbn
 
+      params = {
+        applicationId: RK_APPLICATION_ID, 
+        format: "json",
+          isbn: @book.isbn
+      }
+
+      # Prepare API request
+      uri = URI.parse(polling_url)
+      uri.query = URI.encode_www_form(params)
+
+
+      # Submit request
+      result = JSON.parse(open(uri).read)
+
+      # Display results to screen
+      #puts JSON.pretty_generate result
+
+      puts result["Items"].first["Item"]["isbn"]
+
+      result["Items"].first["Item"].each do |book|
+        @book = Book.new
+        @book.name = book["title"]
+        @book.author = book["author"]
+        @book.isbn = book["isbn"]
+        @book.manufacture = book["publisherName"]
+        @book.publication_date = book["salesDate"]
+        @book.save
+      puts @book.name
+      end
 
 
     end

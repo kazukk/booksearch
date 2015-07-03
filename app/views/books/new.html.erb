@@ -1,107 +1,121 @@
 <h1>本の追加</h1>
 <div class="container" >
-<%= bootstrap_form_for(@book) do |f| %>
-  <%= f.text_field :isbn %>
-  <input class="btn btn-danger" type="button" id="info_search_button" value="検索">
-  <hr>
-  <%= f.text_field :title %>
-  <%= f.text_field :author %>
-  <%= f.text_field :manufacturer %>
-  <%= f.text_field :publication_date %>
-  <%= f.text_field :book_code %>
-  <%= f.primary "本を追加" %>
-<% end %>
+    <%= bootstrap_form_for(@book) do |f| %>
+      <%= f.text_field :isbn %>
+      <input class="btn btn-danger" type="button" id="info_search_button" value="検索">
+      
+      <%= f.text_field :title %>
+      <%= f.text_field :author %>
+      <%= f.text_field :manufacturer %>
+      <%= f.text_field :publication_date %>
+      <%= f.text_field :book_code %>
 
-<br>
+      <%= f.primary "本を追加" %>
+    <% end %>
 
-<br>
+      <br>
 
-<div id="container">
-      <canvas width="320" height="240" id="picture"></canvas>
-      <input id="Take-Picture" type="file" accept="image/*;capture=camera" />
-      <p id="textbit"></p>
-    </div>
+      <br>
+</div>
 
-<div>   <input class="btn btn-primary" type="button" id="isbn_input_button" value="入力"> </div>
+      <div id="container">
+        <canvas width="320" height="240" id="picture"></canvas>
+        <input id="Take-Picture" type="file" accept="image/*;capture=camera" />
+        <p id="textbit"></p>
+      </div>
 
 
-<%= javascript_include_tag "JOB" %>
-<script type="text/javascript">
-      var takePicture = document.querySelector("#Take-Picture"),
-      showPicture = document.createElement("img");
-      Result = document.querySelector("#textbit");
-      var canvas =document.getElementById("picture");
-      var ctx = canvas.getContext("2d");
-     
-      JOB.Init();
-      JOB.SetImageCallback(function(result) {
-        if(result.length > 0){
-          var tempArray = [];
-          for(var i = 0; i < result.length; i++) {
-            tempArray.push(result[i].Format+" : "+result[i].Value);
-          }
-          Result.innerHTML=tempArray.join("<br />");
-        }else{
-          if(result.length === 0) {
-            Result.innerHTML="Decoding failed.";
-          }
-        }
-      });
-      JOB.PostOrientation = true;
-      JOB.OrientationCallback = function(result) {
-        canvas.width = result.width;
-        canvas.height = result.height;
-        var data = ctx.getImageData(0,0,canvas.width,canvas.height);
-        for(var i = 0; i < data.data.length; i++) {
-          data.data[i] = result.data[i];
-        }
-        ctx.putImageData(data,0,0);
-      };
-      JOB.SwitchLocalizationFeedback(true);
-      JOB.SetLocalizationCallback(function(result) {
-        ctx.beginPath();
-        ctx.lineWIdth = "2";
-        ctx.strokeStyle="red";
-        for(var i = 0; i < result.length; i++) {
-          ctx.rect(result[i].x,result[i].y,result[i].width,result[i].height); 
-        }
-        ctx.stroke();
-      });
-      if(takePicture && showPicture) {
-        takePicture.onchange = function (event) {
-          var files = event.target.files;
-          if (files && files.length > 0) {
-            file = files[0];
-            try {
-              var URL = window.URL || window.webkitURL;
-              showPicture.onload = function(event) {
-                Result.innerHTML="";
-                JOB.DecodeImage(showPicture);
-                URL.revokeObjectURL(showPicture.src);
-              };
-              showPicture.src = URL.createObjectURL(file);
+
+  <%= javascript_include_tag "JOB" %>
+  <script type="text/javascript">
+        var takePicture = document.querySelector("#Take-Picture"),
+        showPicture = document.createElement("img");
+        Result = document.querySelector("#textbit");
+        var canvas =document.getElementById("picture");
+        var ctx = canvas.getContext("2d");
+       
+        JOB.Init();
+        JOB.SetImageCallback(function(result) {
+          if(result.length > 0){
+            var tempArray = [];
+            for(var i = 0; i < result.length; i++) {
+              tempArray.push(result[i].Format+" : "+result[i].Value);
             }
-            catch (e) {
+            Result.innerHTML=tempArray.join("<br />");
+          
+
+            var tempArrayib = [];
+            for(var i = 0; i < result.length; i++) {
+              tempArrayib.push(result[i].Value);
+            }
+
+          //jQueryを使ってIDセレクタ #book_isbnにデータを入力
+          $("#book_isbn").val(tempArrayib.join("<br />"));
+            
+
+          }else{
+            if(result.length === 0) {
+              Result.innerHTML="Decoding failed.";
+            }
+          }
+        });
+        JOB.PostOrientation = true;
+        JOB.OrientationCallback = function(result) {
+          canvas.width = result.width;
+          canvas.height = result.height;
+          var data = ctx.getImageData(0,0,canvas.width,canvas.height);
+          for(var i = 0; i < data.data.length; i++) {
+            data.data[i] = result.data[i];
+          }
+          ctx.putImageData(data,0,0);
+        };
+        JOB.SwitchLocalizationFeedback(true);
+        JOB.SetLocalizationCallback(function(result) {
+          ctx.beginPath();
+          ctx.lineWIdth = "2";
+          ctx.strokeStyle="red";
+          for(var i = 0; i < result.length; i++) {
+            ctx.rect(result[i].x,result[i].y,result[i].width,result[i].height); 
+          }
+          ctx.stroke();
+        });
+        if(takePicture && showPicture) {
+          takePicture.onchange = function (event) {
+            var files = event.target.files;
+            if (files && files.length > 0) {
+              file = files[0];
               try {
-                var fileReader = new FileReader();
-                fileReader.onload = function (event) {
-                  showPicture.onload = function(event) {
-                    Result.innerHTML="";
-                    console.log("filereader");
-                    JOB.DecodeImage(showPicture);
-                  };
-                  showPicture.src = event.target.result;
+                var URL = window.URL || window.webkitURL;
+                showPicture.onload = function(event) {
+                  Result.innerHTML="";
+                  JOB.DecodeImage(showPicture);
+                  URL.revokeObjectURL(showPicture.src);
                 };
-                fileReader.readAsDataURL(file);
+                showPicture.src = URL.createObjectURL(file);
               }
               catch (e) {
-                Result.innerHTML = "Neither createObjectURL or FileReader are supported";
+                try {
+                  var fileReader = new FileReader();
+                  fileReader.onload = function (event) {
+                    showPicture.onload = function(event) {
+                      Result.innerHTML="";
+                      console.log("filereader");
+                      JOB.DecodeImage(showPicture);
+                    };
+                    showPicture.src = event.target.result;
+                  };
+                  fileReader.readAsDataURL(file);
+                }
+                catch (e) {
+                  Result.innerHTML = "Neither createObjectURL or FileReader are supported";
+                }
               }
             }
-          }
-        };
-      }
-    </script>
+          };
+        }
+
+        
+        
+      </script>
 
 
-</div>
