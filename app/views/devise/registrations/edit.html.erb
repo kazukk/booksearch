@@ -6,13 +6,13 @@
   <div class="panel-body">
     <%= form_for(resource, :as => resource_name, :url => registration_path(resource_name), :html => { :method => :put }) do |f| %>
       
-      # ↓名前
+     
       <div class="form-group">
         <%= f.label :name %>
         <%= f.text_field :name, autofocus: true, class: "form-control" %>
       </div>
 
-      # ↓権限
+     
       <div class="form-group">
         <%= f.label :role %>
         <%= f.select :role, {"一般ユーザー" => "member", "管理者" => "admin"}, class: "form-control" %>

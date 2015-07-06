@@ -1,10 +1,8 @@
 class BooksController < ApplicationController
-load_and_authorize_resource
+
 before_action :set_book, only: [:show, :edit, :update, :destroy]
 
-before_action :authenticate_user!
 before_action :configure_permitted_parameters, if: :devise_controller?
-
 
 respond_to :js, :json, :html
 

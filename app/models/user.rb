@@ -4,8 +4,6 @@ class User < ActiveRecord::Base
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable
 
-	enum role: {admin: 'admin', member: 'member'}
-
 
 # 以下を追加
   has_many :rentals
