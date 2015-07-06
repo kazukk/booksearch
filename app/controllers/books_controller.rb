@@ -2,7 +2,7 @@ class BooksController < ApplicationController
 
 before_action :set_book, only: [:show, :edit, :update, :destroy]
 
-before_action :configure_permitted_parameters, if: :devise_controller?
+before_action :authenticate_user!
 
 respond_to :js, :json, :html
 
@@ -112,12 +112,16 @@ end
   end
 
   def destroy
-    if @book.rental.nil?
-      @book.destroy
-      redirect_to books_path
-    else
-      redirect_to books_path, notice: "その本は貸出中のため削除できません。"
-    end
+    # if @book.rental.nil?
+    #   @book.destroy
+    #   redirect_to books_path
+    # else
+    #   redirect_to books_path, notice: "その本は貸出中のため削除できません。"
+    # end
+
+    @book.destroy
+    redirect_to books_path
+
   end
 
   private
