@@ -51,7 +51,7 @@ JOB = {
 		JOB.ScanCanvas.height = 480;
 		JOB.ScanContext = JOB.ScanCanvas.getContext("2d");
 		var script  = document.createElement('script');
-  		script.src  = "/assets/exif.js";
+  		script.src  = "/assets/exif.js"; 
  		script.type = 'text/javascript';
 		document.getElementsByTagName('head').item(0).appendChild(script);
 	},
