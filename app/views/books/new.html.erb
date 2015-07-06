@@ -3,6 +3,16 @@
     <%= bootstrap_form_for(@book) do |f| %>
       <%= f.text_field :isbn %>
       <input class="btn btn-danger" type="button" id="info_search_button" value="検索">
+
+<br>
+<p> 写真からISBN情報を取り込む </p>
+ <div id="container">
+        <canvas width="320" height="240" id="picture"></canvas>
+        <input id="Take-Picture" type="file" accept="image/*;capture=camera" />
+        <p id="textbit"></p>
+      </div>
+
+
       <%= f.text_field :image %>
       <%= f.text_field :title %>
       <%= f.text_field :author %>
@@ -18,12 +28,7 @@
       <br>
 </div>
 
-      <div id="container">
-        <canvas width="320" height="240" id="picture"></canvas>
-        <input id="Take-Picture" type="file" accept="image/*;capture=camera" />
-        <p id="textbit"></p>
-      </div>
-
+     
 
 
   <%= javascript_include_tag "JOB" %>

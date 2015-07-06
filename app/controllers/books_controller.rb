@@ -12,7 +12,7 @@ respond_to :js, :json, :html
 
 
   def index
-    @books = Book.all
+    @books = Book.all.order("created_at DESC")
 
   end
 
@@ -33,9 +33,8 @@ end
 
 
    def get_info
-
-  #@book = Book.find(params[:isbn])
-  #isbn = @book.isbn
+  @book = Book.new
+  @book.isbn = params[:isbn]
 
   require 'open-uri'
   require 'json'
@@ -59,7 +58,9 @@ end
   
       params = {
         applicationId: ENV["RK_APPLICATION_ID"], 
-        format: "json",
+        isbn: @book.isbn,
+        format: "json"
+
 
         ###フォーム内のISBNを変数にAPIを叩く
         #isbn: isbn
@@ -88,7 +89,6 @@ end
         }
          render json: info
 
-      #result["Items"].first["Item"].each do |book|
 
     end
 
