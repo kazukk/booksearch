@@ -31,8 +31,10 @@
      
 
 
-  <%= javascript_include_tag "JOB" %>
-  <script type="text/javascript">
+<%= javascript_include_tag "JOB" %>
+<script type="text/javascript">
+<!--
+$(function () {
         var takePicture = document.querySelector("#Take-Picture"),
         showPicture = document.createElement("img");
         Result = document.querySelector("#textbit");
@@ -145,9 +147,10 @@
  $('#info_search_button').click(
             function(){
           $('h1').text("書籍情報自動入力")
-          })
+          });
 
-
-      </script>
+});
+//-->
+</script>
 
 
