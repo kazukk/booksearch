@@ -68,6 +68,8 @@ end
       uri = URI.parse("https://app.rakuten.co.jp/services/api/BooksBook/Search/20130522")
       uri.query = URI.encode_www_form(params)
 
+      Rails.logger.info open(uri).read
+
       # Submit request
       result = JSON.parse(open(uri).read)
 
