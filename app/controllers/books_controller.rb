@@ -68,6 +68,7 @@ end
       uri = URI.parse("https://app.rakuten.co.jp/services/api/BooksBook/Search/20130522")
       uri.query = URI.encode_www_form(params)
 
+      #debug用にopen(uri).readの中身を吐き出す  
       Rails.logger.info open(uri).read
 
       # Submit request
