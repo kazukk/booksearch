@@ -7,7 +7,7 @@
 <% if @books.any? %>
 <table class="table table-bordered table-hover table-condensed">
   <thead>
-     <tr class="info"><th>ID</th><th>Image</th><th>Titile</th><th>Author</th><th>Manufacture</th><th>Release</th><th>Operation</th></tr>
+     <tr class="info"><th>ID</th><th>Image</th><th>Titile</th><th>Author</th><th>Manufacture</th><th>Registered by</th><th>Release</th><th>Operation</th></tr>
   </thead>
   <tbody>
     <% @books.each do |b| %>
@@ -17,13 +17,18 @@
     <td><%= b.title %></td>
     <td><%= b.author %></td>
     <td><%= b.manufacturer %></td>
+    <td><%= b.name %></td>
     <td><%= b.publication_date %></td>
     <td width="230" align="center">
+      
       <div class="btn-group">
         <%= link_to 'Show', book_path(b.id), class: "btn btn-info" %>
+      <% if b.name == current_user.name%> 
         <%= link_to 'Edit', edit_book_path(b.id), class: "btn btn-success" %>
         <%= link_to 'Destroy', book_path(b.id), method: :delete, data: { confirm: "削除してもよろしいですか？" }, :class => "btn btn-danger" %>
-      </div>
+      <% end %>
+      </div> 
+
     </td>
     </tr>
     <% end %>

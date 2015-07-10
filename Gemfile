@@ -40,6 +40,11 @@ gem 'quiet_assets', group: :development
 gem 'meta_request', group: :development
 
 
+gem 'omniauth'
+gem 'omniauth-facebook'
+
+gem "font-awesome-rails"
+
 group :production, :staging do
   gem "pg"
   gem 'rails_12factor'

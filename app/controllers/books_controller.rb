@@ -96,6 +96,7 @@ end
 
   def create
     @book = Book.new(book_params)
+    @book.name = current_user.name
     if @book.save
       redirect_to books_path
     else
@@ -130,7 +131,7 @@ end
   private
 
     def book_params
-      params[:book].permit(:title, :image, :author, :manufacturer, :publication_date, :isbn, :book_code)
+      params[:book].permit(:title, :image, :author, :manufacturer, :publication_date, :isbn, :book_code, :name)
     end
 
     def set_book
